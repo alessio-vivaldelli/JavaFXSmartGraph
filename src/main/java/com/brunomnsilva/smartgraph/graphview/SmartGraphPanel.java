@@ -1761,7 +1761,6 @@ public class SmartGraphPanel<V, E> extends Pane {
                     if (node == null) {
                         return;
                     }
-
                     if (node instanceof SmartGraphVertex) {
                         SmartGraphVertex<V> v = (SmartGraphVertex<V>) node;
                         if (vertexSingleClickConsumer != null) { // Only if the consumer is set
@@ -1771,6 +1770,22 @@ public class SmartGraphPanel<V, E> extends Pane {
                         SmartGraphEdge<E, V> e = (SmartGraphEdge<E, V>) node;
                         if (edgeSingleClickConsumer != null) { // Only if the consumer is set
                             edgeSingleClickConsumer.accept(e);
+                        }
+                    }
+                }else if (mouseEvent.getClickCount() == 2) {
+                    Node node = pick(SmartGraphPanel.this, mouseEvent.getSceneX(), mouseEvent.getSceneY());
+                    if (node == null) {
+                        return;
+                    }
+                    if (node instanceof SmartGraphVertex) {
+                        SmartGraphVertex<V> v = (SmartGraphVertex<V>) node;
+                        if (vertexDoubleClickConsumer != null) { // Only if the consumer is set
+                            vertexDoubleClickConsumer.accept(v);
+                        }
+                    } else if (node instanceof SmartGraphEdge) {
+                        SmartGraphEdge<E, V> e = (SmartGraphEdge<E, V>) node;
+                        if (edgeDoubleClickConsumer != null) { // Only if the consumer is set
+                            edgeDoubleClickConsumer.accept(e);
                         }
                     }
                 }
